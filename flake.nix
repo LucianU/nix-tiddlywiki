@@ -20,10 +20,6 @@
                 pname = "tiddlywiki";
                 version = "5.2.7";
 
-                #src = pkgs.fetchurl {
-                #  url = "https://github.com/Jermolene/TiddlyWiki5/archive/refs/tags/v${version}.tar.gz";
-                #  sha256 = "jbfgoZb2r+MRsMT1/XrjatVu8xMVSArlEfloaRw4cOw=";
-                #};
                 src = pkgs.fetchFromGitHub {
                   owner = "Jermolene";
                   repo = "TiddlyWiki5";
@@ -32,8 +28,9 @@
                 };
 
                 highlightJs = ./highlight.min.js;
+                buildInputs = [ pkgs.nodejs ];
 
-                phases = [ "unpackPhase" "patchPhase" "installPhase" ];
+                phases = [ "unpackPhase" "patchPhase" "installPhase" "fixupPhase" ];
 
                 patchPhase = ''
                   cp $highlightJs ./plugins/tiddlywiki/highlight/files/highlight.min.js
